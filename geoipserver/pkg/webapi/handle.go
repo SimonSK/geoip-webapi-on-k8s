@@ -15,11 +15,11 @@ const (
 )
 
 var (
-	rootPath           = "/"
-	apiRootPath        = "/api"
-	apiIPDetailsPath   = apiRootPath + fmt.Sprintf("/{%s}", routeVariableKeyIP)
-	apiIPLocationPath  = apiIPDetailsPath + "/location"
-	apiIPGPSCoordsPath = apiIPLocationPath + "/coords"
+	rootPath                     = "/"
+	apiRootPath                  = "/api"
+	apiCityDetailsPath           = apiRootPath + fmt.Sprintf("/{%s}", routeVariableKeyIP)
+	apiCityLocationPath          = apiCityDetailsPath + "/location"
+	apiCityLocationGPSCoordsPath = apiCityLocationPath + "/coords"
 )
 
 func respond(w http.ResponseWriter, status int, contentType string, data interface{}) error {
@@ -34,7 +34,7 @@ func respond(w http.ResponseWriter, status int, contentType string, data interfa
 	}
 }
 
-func (s *Server) handleDefault(w http.ResponseWriter, r *http.Request) {
+func (s *Server) getDefault(w http.ResponseWriter, r *http.Request) {
 	route := "default"
 	contentType := "text/plain"
 	var (
@@ -56,7 +56,7 @@ func (s *Server) handleDefault(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-func (s *Server) handleIPDetails(w http.ResponseWriter, r *http.Request) {
+func (s *Server) getCityDetails(w http.ResponseWriter, r *http.Request) {
 	route := "details"
 	contentType := "application/json"
 	var (
@@ -89,7 +89,7 @@ func (s *Server) handleIPDetails(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-func (s *Server) handleIPLocation(w http.ResponseWriter, r *http.Request) {
+func (s *Server) getCityLocation(w http.ResponseWriter, r *http.Request) {
 	route := "location"
 	contentType := "application/json"
 	var (
@@ -123,7 +123,7 @@ func (s *Server) handleIPLocation(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-func (s *Server) handleIPGPSCoords(w http.ResponseWriter, r *http.Request) {
+func (s *Server) getCityLocationGPSCoords(w http.ResponseWriter, r *http.Request) {
 	route := "coords"
 	contentType := "application/json"
 	var (
