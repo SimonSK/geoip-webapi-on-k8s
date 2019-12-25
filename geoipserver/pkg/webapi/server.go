@@ -32,9 +32,9 @@ func (s *Server) info() string {
 		fmt.Sprintln("\tBuild Timestamp:", s.db.Metadata.BuildTimestamp()) +
 		fmt.Sprintln("") +
 		fmt.Sprintln("Usage:") +
-		fmt.Sprintln("\tTo get all fields:", apiIPDetailsPath) +
-		fmt.Sprintln("\tTo get \"location\" fields:", apiIPLocationPath) +
-		fmt.Sprintln("\tTo get GPS coordinates:", apiIPGPSCoordsPath)
+		fmt.Sprintln("\tTo get all fields:", apiCityDetailsPath) +
+		fmt.Sprintln("\tTo get \"location\" fields:", apiCityLocationPath) +
+		fmt.Sprintln("\tTo get GPS coordinates:", apiCityLocationGPSCoordsPath)
 }
 
 func (s *Server) Start() error {
@@ -60,11 +60,11 @@ func (s *Server) Start() error {
 	fmt.Printf(s.info())
 
 	router := mux.NewRouter().StrictSlash(true)
-	router.HandleFunc(rootPath, s.handleDefault)
-	router.HandleFunc(apiRootPath, s.handleDefault)
-	router.HandleFunc(apiIPDetailsPath, s.handleIPDetails)
-	router.HandleFunc(apiIPLocationPath, s.handleIPLocation)
-	router.HandleFunc(apiIPGPSCoordsPath, s.handleIPGPSCoords)
+	router.HandleFunc(rootPath, s.getDefault)
+	router.HandleFunc(apiRootPath, s.getDefault)
+	router.HandleFunc(apiCityDetailsPath, s.getCityDetails)
+	router.HandleFunc(apiCityLocationPath, s.getCityLocation)
+	router.HandleFunc(apiCityLocationGPSCoordsPath, s.getCityLocationGPSCoords)
 	if err := http.ListenAndServe(fmt.Sprintf(":%d", s.ListenPort), router); err != nil {
 		return err
 	}
