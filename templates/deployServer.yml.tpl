@@ -20,7 +20,7 @@ spec:
   ports:
     - name: geoip-api
       protocol: TCP
-      port: 8080
+      port: LOCALHOST_PORT
       targetPort: 8080
   type: LoadBalancer
 ---
